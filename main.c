@@ -59,10 +59,13 @@ int main(int argc, char *argv[])
 		}
 		else
 		{
-			while (feof(archivo) == 0)
+			//while (feof(archivo) == 0)
+			while(1)
 			{
 				j = 0;
 				fgets(caracteres,100,archivo);
+				if (feof(archivo))
+                break;
 				//printf("env-->%s<--\n",caracteres);
 				//printf("mis_paramt_ %s\n", my_parameters[0]);
 
