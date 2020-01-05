@@ -5,6 +5,11 @@
 #include <string.h>
 #include <stdarg.h>
 #include <unistd.h>
+
+
+int global_node_n;
+
+
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
  * @n: integer
@@ -12,7 +17,7 @@
  * @next: points to the next element of the stack (or queue)
  *
  * Description: doubly linked list node structure
- * for stack, queues, LIFO, FIFO Holberton project
+ * for stack, queues, LIFO, FIFO Holberton projects
  */
 typedef struct stack_s
 {
@@ -33,10 +38,10 @@ typedef struct stack_s
 typedef struct instruction_s
 {
         char *opcode;
-//	void (*f)();
         void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
 void push_element_stack(stack_t **stack, unsigned int line_number);
+void print_all_element(stack_t **stack, unsigned int line_number);
 
 #endif

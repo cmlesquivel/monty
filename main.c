@@ -33,13 +33,15 @@ int main(int argc, char *argv[])
 	char caracteres[100];
 	char *my_parameters[10];
 	int j;
+	unsigned int my_line = 0;
+	extern int global_node_n;
 
 	stack_t *mi_pila;
 	mi_pila = NULL;
 
 	instruction_t array_opcode[] = {
 		{"push", push_element_stack},
-//		{"pall", print_all_element},
+		{"pall", print_all_element},
 //		{"pint", printf_top_element},
 //		{"pop", remove_top_element},
 //		{"swap", swap_two_element},
@@ -48,56 +50,71 @@ int main(int argc, char *argv[])
 		{NULL,NULL}
 	};
 
-	if ( 1)
+
+
+	if ( argc == 2)
 	{
-		archivo = fopen("bytecodes/1.m","r");
+		archivo = fopen(argv[1],"r");
 
 		if (archivo == NULL)
 		{
-			printf("Error lectura");
-			exit(1);
+			printf("Error: Can't open file %s\n",argv[1]);
+			exit(EXIT_FAILURE);
 		}
 		else
 		{
-			//while (feof(archivo) == 0)
+			
 			while(1)
 			{
 				j = 0;
+				
 				fgets(caracteres,100,archivo);
 				if (feof(archivo))
                 break;
-				//printf("env-->%s<--\n",caracteres);
-				//printf("mis_paramt_ %s\n", my_parameters[0]);
 
 				input_split(my_parameters, caracteres, " \n");
-				//			printf("aqui estoy");
+				my_line++;
 
 				while (my_parameters[0] != NULL && array_opcode[j].opcode != NULL )
 				{
-					//printf("parame[0]... %s\n",my_parameters[0]);
-					//printf("code--> %s\n",array_opcode[j].opcode);
+					
+					
+
 					
 					if ( strcmp (my_parameters[0], array_opcode[j].opcode)==0)
 					{
-						//printf("iguales");
-						array_opcode[j].f(&mi_pila ,atoi(my_parameters[1]));
-						//array_opcode[j].f(&mi_pila ,2);
+				
+						if(my_parameters[1] !=NULL)
+						global_node_n = atoi(my_parameters[1]);
+						else
+						{
+							//global_node_n=NULL;
+						}
+						
+						//printf("global_node_n %d\n",global_node_n);
+						array_opcode[j].f(&mi_pila ,my_line);
+						
 
 						break;
 					}
 					j++;
-				}
-			        //printf("--0--%s--\n",my_parameters[0]);
-				//printf("--1--%s--\n",my_parameters[1]);
 
-				//printf("--%s--\n",caracteres);
+					if (array_opcode[j].opcode == NULL)
+					{
+						printf("L%d: unknown instruction %s\n",my_line,my_parameters[0]);
+						exit(EXIT_FAILURE);
+					}
+					
+					
+				}
+			        
 			}
-			//system("PAUSE");
 		}
 		fclose(archivo);
 	}
 	else
 	{
-		printf("Error");
+		printf("USAGE: monty file\n");
+		exit(EXIT_FAILURE);
 	}
 }
