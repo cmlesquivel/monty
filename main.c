@@ -17,8 +17,9 @@ char **input_split(char **parameters, char *string, char *delimitator)
 	token = strtok(string, delimitator);
 	while (token)
 	{
-		parameters[i++] = token;
+		parameters[i] = token;
 		token = strtok(NULL, delimitator);
+		i++;
 	}
 	parameters[i] = 0;
 	return (parameters);
@@ -31,9 +32,9 @@ int main(int argc, char *argv[])
 	FILE *archivo;
 	char caracteres[100];
 	char *my_parameters[10];
-	int j = 0;
+	int j;
 
-	stack_t **mi_pila;
+	stack_t *mi_pila;
 	mi_pila = NULL;
 
 	instruction_t array_opcode[] = {
@@ -47,9 +48,9 @@ int main(int argc, char *argv[])
 		{NULL,NULL}
 	};
 
-	if (argc > 1)
+	if ( 1)
 	{
-		archivo = fopen(argv[1],"r");
+		archivo = fopen("bytecodes/1.m","r");
 
 		if (archivo == NULL)
 		{
@@ -58,23 +59,31 @@ int main(int argc, char *argv[])
 		}
 		else
 		{
-			//printf("\nEl contenido del archivo de prueba es \n\n");
 			while (feof(archivo) == 0)
 			{
+				j = 0;
 				fgets(caracteres,100,archivo);
 				//printf("env-->%s<--\n",caracteres);
+				//printf("mis_paramt_ %s\n", my_parameters[0]);
 
 				input_split(my_parameters, caracteres, " \n");
-/*
-				while (argv[0] != NULL || argv != NULL )
+				//			printf("aqui estoy");
+
+				while (my_parameters[0] != NULL && array_opcode[j].opcode != NULL )
 				{
-					if (argv[0] == array_opcode[j].opcode)
+					//printf("parame[0]... %s\n",my_parameters[0]);
+					//printf("code--> %s\n",array_opcode[j].opcode);
+					
+					if ( strcmp (my_parameters[0], array_opcode[j].opcode)==0)
 					{
-						sarray_opcode[j].f(mi_pila ,atoi(argv[1]));
+						//printf("iguales");
+						array_opcode[j].f(&mi_pila ,atoi(my_parameters[1]));
+						//array_opcode[j].f(&mi_pila ,2);
+
 						break;
 					}
 					j++;
-					}*/
+				}
 			        //printf("--0--%s--\n",my_parameters[0]);
 				//printf("--1--%s--\n",my_parameters[1]);
 

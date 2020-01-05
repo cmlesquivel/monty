@@ -1,4 +1,4 @@
-#include<monty.h>
+#include "monty.h"
 
 /**
  * printf_integer - print a number
@@ -7,10 +7,10 @@
  * Return: nothing
 */
 
-void print_all_element (){
+/*void print_all_element (){
      printf("su numero es: %d\n", number);
-}
+     }*/
 
-void push_element_stack (stack_t **mi_pila, int number){
-     printf("su numero es: %d\n", number);
+void push_element_stack(stack_t **stack, unsigned int line_number){
+     printf("su numero es: %d\n", line_number);
 }
