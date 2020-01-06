@@ -65,6 +65,7 @@ if (array_opcode[j].opcode == NULL)
 {
 dprintf(2, "L%d: unknown instruction %s\n", my_line, my_parameters[0]);
 free_stack(mi_pila);
+fclose(archivo);
 exit(EXIT_FAILURE);
 }
 }
@@ -87,6 +88,7 @@ stack_t *mi_pila;
 instruction_t array_opcode[] = {
 {"push", push_element_stack},
 {"pall", print_stack},
+{"pint", printf_top_element},
 {NULL, NULL}
 };
 

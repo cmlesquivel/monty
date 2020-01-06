@@ -103,3 +103,34 @@ stack->prev = NULL;
 
 free(stack);
 }
+
+
+
+/**
+ * printf_top_element -  prints the value at the top of the stack
+ * @stack: stack structures type doubly linked list
+ * @line_number: line number where the instruction appears.
+ * Return: nothing
+*/
+
+void printf_top_element(stack_t **stack, unsigned int line_number)
+{
+stack_t *aux;
+aux = *stack;
+
+if (*stack == NULL)
+{
+dprintf(2, "L%d: can't pint, stack empty\n", line_number);
+free_stack(*stack);
+exit(EXIT_FAILURE);
+}
+else
+{
+printf("%d\n", aux->n);
+}
+
+
+}
+
+
+
