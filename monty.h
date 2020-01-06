@@ -5,10 +5,10 @@
 #include <string.h>
 #include <stdarg.h>
 #include <unistd.h>
+#include <ctype.h>
 
 
-int global_node_n;
-
+char *global_node_n[1024];
 
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
@@ -21,9 +21,9 @@ int global_node_n;
  */
 typedef struct stack_s
 {
-        int n;
-        struct stack_s *prev;
-        struct stack_s *next;
+int n;
+struct stack_s *prev;
+struct stack_s *next;
 } stack_t;
 
 
@@ -37,11 +37,12 @@ typedef struct stack_s
  */
 typedef struct instruction_s
 {
-        char *opcode;
-        void (*f)(stack_t **stack, unsigned int line_number);
+char *opcode;
+void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
 void push_element_stack(stack_t **stack, unsigned int line_number);
-void print_all_element(stack_t **stack, unsigned int line_number);
+void print_stack(stack_t **stack, unsigned int line_number);
+
 
 #endif
