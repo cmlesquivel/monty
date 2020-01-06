@@ -89,6 +89,8 @@ instruction_t array_opcode[] = {
 {"push", push_element_stack},
 {"pall", print_stack},
 {"pint", printf_top_element},
+{"pop", remove_top_element},
+{"swap", swap_two_element},
 {NULL, NULL}
 };
 

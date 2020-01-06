@@ -45,6 +45,9 @@ void (*f)(stack_t **stack, unsigned int line_number);
 void push_element_stack(stack_t **stack, unsigned int line_number);
 void print_stack(stack_t **stack, unsigned int line_number);
 void printf_top_element(stack_t **stack, unsigned int line_number);
+void remove_top_element(stack_t **stack, unsigned int line_number);
+void swap_two_element(stack_t **stack, unsigned int line_number);
+
 void free_stack(stack_t *stack);
 
 
