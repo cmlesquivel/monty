@@ -16,7 +16,7 @@ int number, i;
 
 if (global_node_n[0] == NULL)
 {
-fprintf(stderr, "L%d: usage: push integer\n", line_number);
+dprintf(2, "L%d: usage: push integer\n", line_number);
 free_stack(*stack);
 exit(EXIT_FAILURE);
 }
@@ -25,7 +25,7 @@ for (i = 0; global_node_n[0][i] != '\0'; i++)
 {
 if (isdigit(global_node_n[0][i]) == 0)
 {
-fprintf(stderr, "L%d: usage: push integer\n", line_number);
+dprintf(2, "L%d: usage: push integer\n", line_number);
 free_stack(*stack);
 exit(EXIT_FAILURE);
 }
@@ -35,7 +35,7 @@ new_node = malloc(sizeof(stack_t));
 
 if (new_node == NULL)
 {
-fprintf(stderr, "Error: malloc failed\n");
+dprintf(2, "Error: malloc failed\n");
 free_stack(*stack);
 exit(EXIT_FAILURE);
 }
@@ -57,14 +57,15 @@ new_node->next = *stack;
 /**
  * print_stack -  prints all values on the stack.
  * @stack: stack structures type doubly linked list
- * @ln_nber: line number where the instruction appears.
+ * @line_number: line number where the instruction appears.
  * Return: nothing
 */
 
-void print_stack(stack_t **stack, unsigned int __attribute__((unused)) ln_nber)
+void print_stack(stack_t **stack, unsigned int line_number)
 {
 stack_t *aux;
 aux = *stack;
+IGNORE line_number;
 
 
 if (*stack == NULL)
@@ -82,6 +83,11 @@ aux = aux->next;
 
 
 
+/**
+ * free_stack -  free a stack structures .
+ * @stack: stack structures type doubly linked list
+ * Return: nothing
+*/
 void free_stack(stack_t *stack)
 {
 if (stack == NULL)

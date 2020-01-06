@@ -6,6 +6,7 @@
 #include <stdarg.h>
 #include <unistd.h>
 #include <ctype.h>
+#define IGNORE (void)
 
 
 char *global_node_n[1024];

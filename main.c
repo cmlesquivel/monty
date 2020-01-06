@@ -63,7 +63,7 @@ j++;
 
 if (array_opcode[j].opcode == NULL)
 {
-fprintf(stderr, "L%d: unknown instruction %s\n", my_line, my_parameters[0]);
+dprintf(2, "L%d: unknown instruction %s\n", my_line, my_parameters[0]);
 free_stack(mi_pila);
 exit(EXIT_FAILURE);
 }
@@ -98,7 +98,7 @@ archivo = fopen(argv[1], "r");
 
 if (archivo == NULL)
 {
-fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
+dprintf(2, "Error: Can't open file %s\n", argv[1]);
 exit(EXIT_FAILURE);
 }
 else
@@ -109,7 +109,7 @@ fclose(archivo);
 }
 else
 {
-fprintf(stderr, "USAGE: monty file\n");
+dprintf(2, "USAGE: monty file\n");
 exit(EXIT_FAILURE);
 }
 free(mi_pila);
