@@ -11,12 +11,13 @@ extern char *global_node_n[1024];
 
 void push_element_stack(stack_t **stack, unsigned int line_number)
 {
-stack_t *new_node, *aux;
+stack_t *new_node;
 int number, i;
 
 if (global_node_n[0] == NULL)
 {
 fprintf(stderr, "L%d: usage: push integer\n", line_number);
+free_stack(*stack);
 exit(EXIT_FAILURE);
 }
 
@@ -25,6 +26,7 @@ for (i = 0; global_node_n[0][i] != '\0'; i++)
 if (isdigit(global_node_n[0][i]) == 0)
 {
 fprintf(stderr, "L%d: usage: push integer\n", line_number);
+free_stack(*stack);
 exit(EXIT_FAILURE);
 }
 }
@@ -34,6 +36,7 @@ new_node = malloc(sizeof(stack_t));
 if (new_node == NULL)
 {
 fprintf(stderr, "Error: malloc failed\n");
+free_stack(*stack);
 exit(EXIT_FAILURE);
 }
 new_node->n = number;
@@ -44,12 +47,9 @@ if (*stack == NULL)
 *stack = new_node;
 else
 {
-aux = *stack;
-while (aux->next != NULL)
-aux = aux->next;
-
-aux->next = new_node;
-new_node->prev = aux;
+new_node->next = *stack;
+(*stack)->prev = new_node;
+*stack = new_node;
 }
 }
 
@@ -72,15 +72,28 @@ if (*stack == NULL)
 return;
 }
 
-while (aux->next != NULL)
-{
-aux = aux->next;
-}
-
 while (aux != NULL)
 {
 printf("%d\n", aux->n);
-aux = aux->prev;
+aux = aux->next;
 }
 
+}
+
+
+
+void free_stack(stack_t *stack)
+{
+if (stack == NULL)
+{
+return;
+}
+while (stack->next != NULL)
+{
+stack = stack->next;
+free(stack->prev);
+stack->prev = NULL;
+}
+
+free(stack);
 }

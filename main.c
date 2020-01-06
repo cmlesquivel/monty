@@ -64,6 +64,7 @@ j++;
 if (array_opcode[j].opcode == NULL)
 {
 fprintf(stderr, "L%d: unknown instruction %s\n", my_line, my_parameters[0]);
+free_stack(mi_pila);
 exit(EXIT_FAILURE);
 }
 }
@@ -111,5 +112,6 @@ else
 fprintf(stderr, "USAGE: monty file\n");
 exit(EXIT_FAILURE);
 }
+free(mi_pila);
 return (0);
 }
