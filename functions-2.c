@@ -38,6 +38,7 @@ void swap_two_element(stack_t **stack, unsigned int line_number)
 {
 stack_t *aux, *aux2;
 int lont = 0;
+
 aux = *stack;
 aux2 = aux->next;
 
